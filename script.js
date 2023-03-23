@@ -25,6 +25,7 @@ async function getData() {
         celcius.innerHTML = `${forecastWeatherData.current['temp_c']}°C `;
         farenheit.innerHTML = `${forecastWeatherData.current['temp_f']}°F`;
         setBg(forecastWeatherData.current['is_day']);
+        addForecast(forecastWeatherData.forecast);
     } catch (error) {
         console.log(error);
     }
@@ -61,4 +62,50 @@ function setBg(status) {
         let header = document.querySelector('.header');
         header.style.color = '#001220';
     }
+}
+
+// Add forecast
+function addForecast(forecast) {
+    let forecastDiv = document.querySelector('.forecast');
+    let dailyForecast = document.createElement('div');
+    dailyForecast.classList.add('daily-forecast');
+    forecast.forecastday.forEach((day) => {
+        let daily = document.createElement('div');
+        daily.classList.add('daily');
+        let date = document.createElement('p');
+        date.classList.add('forecast-date');
+        date.textContent = day.date;
+        let img = document.createElement('img');
+        img.classList.add('logo');
+        img.src = day.day.condition.icon;
+        let p = document.createElement('p');
+        p.classList.add('condition');
+        p.textContent = day.day.condition.text;
+        let temps = document.createElement('div');
+        temps.classList.add('temps');
+        let celcius = document.createElement('span');
+        celcius.classList.add('celcius-min');
+        celcius.textContent = `${day.day['mintemp_c']} `;
+        let celciusMax = document.createElement('span');
+        celciusMax.classList.add('celcius-max');
+        celciusMax.textContent = `${day.day['maxtemp_c']}°C / `;
+        let farenheit = document.createElement('span');
+        farenheit.classList.add('farenheit-min');
+        farenheit.textContent = `${day.day['mintemp_f']} `;
+        let farenheitMax = document.createElement('span');
+        farenheitMax.classList.add('farenheit-max');
+        farenheitMax.textContent = `${day.day['maxtemp_f']}°F`;
+
+        temps.appendChild(celcius);
+        temps.appendChild(celciusMax);
+        temps.appendChild(farenheit);
+        temps.appendChild(farenheitMax);
+
+        daily.appendChild(date);
+        daily.appendChild(img);
+        daily.appendChild(p);
+        daily.appendChild(temps);
+        dailyForecast.appendChild(daily);
+    });
+    forecastDiv.appendChild(dailyForecast);
 }
