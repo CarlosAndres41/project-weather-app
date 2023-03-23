@@ -1,8 +1,5 @@
-const current =
-    'http://api.weatherapi.com/v1/current.json?key=19f4e2729c45485f99c12545232203&q=London&aqi=no';
 const forecast =
-    'http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=London&aqi=no';
-
+    'http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=London&days=5&aqi=no&alerts=no';
 // Selectors
 
 const city = document.querySelector('.city');
@@ -23,7 +20,7 @@ async function getData() {
         country.innerHTML = forecastWeatherData.location.country;
         logo.src = forecastWeatherData.current.condition.icon;
         condition.innerHTML = forecastWeatherData.current.condition.text;
-        celcius.innerHTML = `${forecastWeatherData.current['temp_c']}°C`;
+        celcius.innerHTML = `${forecastWeatherData.current['temp_c']}°C `;
         farenheit.innerHTML = `${forecastWeatherData.current['temp_f']}°F`;
     } catch (error) {
         console.log(error);
