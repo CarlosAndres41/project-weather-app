@@ -24,6 +24,7 @@ async function getData() {
         condition.innerHTML = forecastWeatherData.current.condition.text;
         celcius.innerHTML = `${forecastWeatherData.current['temp_c']}°C `;
         farenheit.innerHTML = `${forecastWeatherData.current['temp_f']}°F`;
+        setBg(forecastWeatherData.current['is_day']);
     } catch (error) {
         console.log(error);
     }
@@ -31,6 +32,7 @@ async function getData() {
 
 getData();
 
+// Local time and date
 //Display real-time
 const interval = setInterval(() => {
     let currentTime = new Date().toTimeString().slice(0, 8);
@@ -39,10 +41,20 @@ const interval = setInterval(() => {
 
 // Display date
 var options = {
-    weekday: 'long',
+    weekday: 'short',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
 };
 var today = new Date();
 date.innerHTML = today.toLocaleDateString('en-US', options); // Saturday, September 17, 2016
+
+// Set backgrund image according to day or night time
+function setBg(status) {
+    // if day
+    if (status === 1) {
+        document.body.style.backgroundImage = 'url(day.svg)';
+    } else {
+        document.body.style.backgroundImage = 'url(night.svg)';
+    }
+}
