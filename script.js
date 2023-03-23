@@ -35,7 +35,7 @@ getData();
 // Local time and date
 //Display real-time
 const interval = setInterval(() => {
-    let currentTime = new Date().toTimeString().slice(0, 8);
+    let currentTime = new Date().toTimeString().slice(0, 5);
     time.innerHTML = currentTime;
 }, 1000);
 
@@ -54,7 +54,11 @@ function setBg(status) {
     // if day
     if (status === 1) {
         document.body.style.backgroundImage = 'url(day.svg)';
+        document.body.style.color = '#002b5b';
     } else {
         document.body.style.backgroundImage = 'url(night.svg)';
+        document.body.style.color = '#C7E8CA';
+        let header = document.querySelector('.header');
+        header.style.color = '#001220';
     }
 }

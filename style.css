@@ -9,6 +9,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body {
-    color: #ecf2ff;
+.welcome,
+.current-data {
+    display: flex;
+    padding: 3rem;
+    justify-content: space-between;
 }
