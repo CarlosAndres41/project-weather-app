@@ -1,5 +1,5 @@
 let cityName = 'London';
-const URLApi = `http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=${cityName}&days=5&aqi=no&alerts=no`;
+const URLApi = `https://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=${cityName}&days=5&aqi=no&alerts=no`;
 
 // Selectors
 const city = document.querySelector('.city');
