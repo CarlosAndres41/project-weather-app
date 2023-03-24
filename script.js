@@ -1,5 +1,5 @@
-const forecast =
-    'http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=london&days=5&aqi=no&alerts=no';
+let cityName = 'London';
+const URLApi = `http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=${cityName}&days=5&aqi=no&alerts=no`;
 
 // Selectors
 const city = document.querySelector('.city');
@@ -12,9 +12,9 @@ const farenheit = document.querySelector('.farenheit');
 // const time = document.querySelector('.time');
 // const date = document.querySelector('.date');
 
-async function getData() {
+async function getData(api) {
     try {
-        const forecastResponse = await fetch(forecast, { mode: 'cors' });
+        const forecastResponse = await fetch(api, { mode: 'cors' });
         const forecastWeatherData = await forecastResponse.json();
         city.innerHTML = forecastWeatherData.location.name;
         region.innerHTML = forecastWeatherData.location.region;
@@ -34,24 +34,7 @@ async function getData() {
     }
 }
 
-getData();
-
-// // Local time and date
-// //Display real-time
-// const interval = setInterval(() => {
-//     let currentTime = new Date().toTimeString().slice(0, 5);
-//     time.innerHTML = currentTime;
-// }, 1000);
-
-// // Display date
-// var options = {
-//     weekday: 'short',
-//     year: 'numeric',
-//     month: 'long',
-//     day: 'numeric',
-// };
-// var today = new Date();
-// date.innerHTML = today.toLocaleDateString('en-US', options); // Saturday, September 17, 2016
+getData(URLApi);
 
 // Set backgrund image according to day or night time
 function setBg(status) {
@@ -71,6 +54,9 @@ function setBg(status) {
 function addForecast(forecast) {
     let forecastDiv = document.querySelector('.forecast');
     let dailyForecast = document.createElement('div');
+    let title = document.createElement('h2');
+    title.textContent = '5 Day Forecast';
+    forecastDiv.appendChild(title);
     dailyForecast.classList.add('daily-forecast');
     forecast.forecastday.forEach((day) => {
         let daily = document.createElement('div');
@@ -169,3 +155,29 @@ function addHourlyForecast(forecast, lastEpochTime) {
     });
     forecastDiv.appendChild(hourlyForecast);
 }
+
+// Add functionality to input and search button
+let searchInput = document.querySelector('input');
+let searchButton = document.querySelector('button');
+
+searchButton.addEventListener('click', () => {
+    // Remove current data
+    const myNode = document.querySelector('.forecast');
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.lastChild);
+    }
+    // Remove current data end
+    let URLApi = `http://api.weatherapi.com/v1/forecast.json?key=19f4e2729c45485f99c12545232203&q=${searchInput.value}&days=5&aqi=no&alerts=no`;
+    getData(URLApi);
+});
+
+// Search on enter
+searchInput.addEventListener('keypress', function (event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === 'Enter') {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        searchButton.click();
+    }
+});
