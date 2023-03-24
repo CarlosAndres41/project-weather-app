@@ -34,18 +34,25 @@
 }
 
 .forecast {
-    padding: 3rem;
+    padding: 1rem 3rem;
 }
 
-.daily-forecast {
+.daily-forecast,
+.hourly-forecast {
     display: flex;
     padding: 1rem;
     justify-content: space-around;
 }
+.hourly-forecast {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
 
-.daily {
+.daily,
+.hourly {
     font-size: 0.6rem;
     text-align: center;
+    justify-content: center;
 }
 
 .celcius-min,

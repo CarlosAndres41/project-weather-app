@@ -26,6 +26,7 @@ async function getData() {
         farenheit.innerHTML = `${forecastWeatherData.current['temp_f']}°F`;
         setBg(forecastWeatherData.current['is_day']);
         addForecast(forecastWeatherData.forecast);
+        addHourlyForecast(forecastWeatherData.forecast.forecastday[0].hour);
     } catch (error) {
         console.log(error);
     }
@@ -108,4 +109,54 @@ function addForecast(forecast) {
         dailyForecast.appendChild(daily);
     });
     forecastDiv.appendChild(dailyForecast);
+}
+
+// Add forecast
+function addHourlyForecast(forecast) {
+    console.log(forecast);
+    let forecastDiv = document.querySelector('.forecast');
+    let hourlyForecast = document.createElement('div');
+    let title = document.createElement('h2');
+    title.textContent = 'Hourly Forecast';
+    forecastDiv.appendChild(title);
+    hourlyForecast.classList.add('hourly-forecast');
+    forecast.forEach((hours) => {
+        let hourly = document.createElement('div');
+        hourly.classList.add('hourly');
+        let hour = document.createElement('p');
+        hour.classList.add('forecast-date');
+        hour.textContent = hours.time.slice(-5);
+        let img = document.createElement('img');
+        img.classList.add('logo');
+        img.src = hours.condition.icon;
+        let p = document.createElement('p');
+        p.classList.add('condition');
+        p.textContent = hours.condition.text;
+        let temps = document.createElement('div');
+        temps.classList.add('temps');
+        let celcius = document.createElement('span');
+        // celcius.classList.add('celcius-min');
+        // // celcius.textContent = `${day.day['mintemp_c']} `;
+        let celciusMax = document.createElement('span');
+        celciusMax.classList.add('celcius-max');
+        celciusMax.textContent = `${hours['temp_c']}°C / `;
+        let farenheit = document.createElement('span');
+        // farenheit.classList.add('farenheit-min');
+        // // farenheit.textContent = `${day.day['mintemp_f']} `;
+        let farenheitMax = document.createElement('span');
+        farenheitMax.classList.add('farenheit-max');
+        farenheitMax.textContent = `${hours['temp_f']}°F`;
+
+        temps.appendChild(celcius);
+        temps.appendChild(celciusMax);
+        temps.appendChild(farenheit);
+        temps.appendChild(farenheitMax);
+
+        hourly.appendChild(hour);
+        hourly.appendChild(img);
+        hourly.appendChild(p);
+        hourly.appendChild(temps);
+        hourlyForecast.appendChild(hourly);
+    });
+    forecastDiv.appendChild(hourlyForecast);
 }
