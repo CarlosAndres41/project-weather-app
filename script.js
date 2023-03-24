@@ -16,7 +16,6 @@ async function getData() {
     try {
         const forecastResponse = await fetch(forecast, { mode: 'cors' });
         const forecastWeatherData = await forecastResponse.json();
-        console.log(forecastWeatherData);
         city.innerHTML = forecastWeatherData.location.name;
         region.innerHTML = forecastWeatherData.location.region;
         country.innerHTML = forecastWeatherData.location.country;
@@ -116,8 +115,6 @@ function addForecast(forecast) {
 
 // Add Hourly forecast
 function addHourlyForecast(forecast, lastEpochTime) {
-    console.log(forecast);
-    console.log(lastEpochTime);
     let forecastDiv = document.querySelector('.forecast');
     let hourlyForecast = document.createElement('div');
     let title = document.createElement('h2');
@@ -131,7 +128,7 @@ function addHourlyForecast(forecast, lastEpochTime) {
             nextFiveHrs.push(time);
         }
     });
-    console.log(nextFiveHrs);
+
     nextFiveHrs.forEach((hours) => {
         let hourly = document.createElement('div');
         hourly.classList.add('hourly');
