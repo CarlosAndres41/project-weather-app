@@ -37,22 +37,22 @@ async function getData() {
 
 getData();
 
-// Local time and date
-//Display real-time
-const interval = setInterval(() => {
-    let currentTime = new Date().toTimeString().slice(0, 5);
-    time.innerHTML = currentTime;
-}, 1000);
+// // Local time and date
+// //Display real-time
+// const interval = setInterval(() => {
+//     let currentTime = new Date().toTimeString().slice(0, 5);
+//     time.innerHTML = currentTime;
+// }, 1000);
 
-// Display date
-var options = {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-};
-var today = new Date();
-date.innerHTML = today.toLocaleDateString('en-US', options); // Saturday, September 17, 2016
+// // Display date
+// var options = {
+//     weekday: 'short',
+//     year: 'numeric',
+//     month: 'long',
+//     day: 'numeric',
+// };
+// var today = new Date();
+// date.innerHTML = today.toLocaleDateString('en-US', options); // Saturday, September 17, 2016
 
 // Set backgrund image according to day or night time
 function setBg(status) {
@@ -114,7 +114,7 @@ function addForecast(forecast) {
     forecastDiv.appendChild(dailyForecast);
 }
 
-// Add Hopurly forecast
+// Add Hourly forecast
 function addHourlyForecast(forecast, lastEpochTime) {
     console.log(forecast);
     console.log(lastEpochTime);
