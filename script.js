@@ -9,8 +9,8 @@ const logo = document.querySelector('.logo');
 const condition = document.querySelector('.condition');
 const celcius = document.querySelector('.celcius');
 const farenheit = document.querySelector('.farenheit');
-const time = document.querySelector('.time');
-const date = document.querySelector('.date');
+// const time = document.querySelector('.time');
+// const date = document.querySelector('.date');
 
 async function getData() {
     try {
