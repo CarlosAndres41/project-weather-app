@@ -26,7 +26,10 @@ async function getData() {
         farenheit.innerHTML = `${forecastWeatherData.current['temp_f']}°F`;
         setBg(forecastWeatherData.current['is_day']);
         addForecast(forecastWeatherData.forecast);
-        addHourlyForecast(forecastWeatherData.forecast.forecastday[0].hour);
+        addHourlyForecast(
+            forecastWeatherData.forecast.forecastday[0].hour,
+            forecastWeatherData.current['last_updated_epoch']
+        );
     } catch (error) {
         console.log(error);
     }
@@ -111,16 +114,25 @@ function addForecast(forecast) {
     forecastDiv.appendChild(dailyForecast);
 }
 
-// Add forecast
-function addHourlyForecast(forecast) {
+// Add Hopurly forecast
+function addHourlyForecast(forecast, lastEpochTime) {
     console.log(forecast);
+    console.log(lastEpochTime);
     let forecastDiv = document.querySelector('.forecast');
     let hourlyForecast = document.createElement('div');
     let title = document.createElement('h2');
-    title.textContent = 'Hourly Forecast';
+    title.textContent = '5 Hour Forecast';
     forecastDiv.appendChild(title);
     hourlyForecast.classList.add('hourly-forecast');
-    forecast.forEach((hours) => {
+
+    let nextFiveHrs = [];
+    forecast.forEach((time) => {
+        if (time['time_epoch'] > lastEpochTime && nextFiveHrs.length < 5) {
+            nextFiveHrs.push(time);
+        }
+    });
+    console.log(nextFiveHrs);
+    nextFiveHrs.forEach((hours) => {
         let hourly = document.createElement('div');
         hourly.classList.add('hourly');
         let hour = document.createElement('p');

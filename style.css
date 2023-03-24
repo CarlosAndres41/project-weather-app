@@ -43,10 +43,6 @@
     padding: 1rem;
     justify-content: space-around;
 }
-.hourly-forecast {
-    overflow-x: scroll;
-    white-space: nowrap;
-}
 
 .daily,
 .hourly {
